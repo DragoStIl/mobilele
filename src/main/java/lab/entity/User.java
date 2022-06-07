@@ -29,9 +29,10 @@ public class User {
     @Column(nullable = false)
     private boolean isActive;
 
-    @OneToOne
-    private Role role;
+    @ManyToMany
+    private Set<Role> role;
 
+    @Column
     private String imageUrl;
 
     @Column
@@ -45,6 +46,7 @@ public class User {
 
     public User() {
         this.offers = new HashSet<>();
+        this.role = new HashSet<>();
     }
 
     public Set<Offer> getOffers() {
@@ -103,11 +105,11 @@ public class User {
         isActive = active;
     }
 
-    public Role getRole() {
+    public Set<Role> getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(Set<Role> role) {
         this.role = role;
     }
 

@@ -22,7 +22,7 @@ public class Brand {
     @Column
     private LocalDateTime modified;
 
-    @OneToMany(mappedBy = "brand")
+    @OneToMany(mappedBy = "brand", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Model> models;
 
     public Brand() {

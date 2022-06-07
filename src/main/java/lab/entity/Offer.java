@@ -19,6 +19,7 @@ public class Offer {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String description;
 
+    @Column(nullable = false, name = "engines")
     @Enumerated(EnumType.STRING)
     private Engine engine;
 
@@ -30,6 +31,7 @@ public class Offer {
 
     private BigDecimal price;
 
+    @Column(nullable = false, name = "transmissions")
     @Enumerated(EnumType.STRING)
     private Transmission transmission;
 
