@@ -45,7 +45,7 @@ public class Offer {
     private LocalDateTime modified;
 
     @ManyToOne
-    private User seller;
+    private UserEntity seller;
 
     @ManyToOne
     private Model model;
@@ -141,11 +141,11 @@ public class Offer {
         this.modified = modified;
     }
 
-    public User getSeller() {
+    public UserEntity getSeller() {
         return seller;
     }
 
-    public void setSeller(User seller) {
+    public void setSeller(UserEntity seller) {
         this.seller = seller;
     }
 }

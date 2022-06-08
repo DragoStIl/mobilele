@@ -7,17 +7,14 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false, unique = true)
-    private String username;
-
-    @Column(nullable = false)
-    private String password;
+    private String email;
 
     @Column(nullable = false)
     private String firstName;
@@ -25,37 +22,39 @@ public class User {
     @Column(nullable = false)
     private String lastName;
 
+    @Column()
+    private String password;
 
     @Column(nullable = false)
     private boolean isActive;
 
-    @ManyToMany
-    private Set<Role> role;
-
     @Column
     private String imageUrl;
 
-    @Column
-    private LocalDateTime created;
+    @ManyToMany
+    private Set<Role> roles;
 
-    @Column
-    private LocalDateTime modified;
+//    @Column
+//    private LocalDateTime created;
+//
+//    @Column
+//    private LocalDateTime modified;
+//
+//    @OneToMany(mappedBy = "seller")
+//    private Set<Offer> offers;
 
-    @OneToMany(mappedBy = "seller")
-    private Set<Offer> offers;
-
-    public User() {
-        this.offers = new HashSet<>();
-        this.role = new HashSet<>();
+    public UserEntity() {
+//        this.offers = new HashSet<>();
+        this.roles = new HashSet<>();
     }
 
-    public Set<Offer> getOffers() {
-        return offers;
-    }
-
-    public void setOffers(Set<Offer> offers) {
-        this.offers = offers;
-    }
+//    public Set<Offer> getOffers() {
+//        return offers;
+//    }
+//
+//    public void setOffers(Set<Offer> offers) {
+//        this.offers = offers;
+//    }
 
     public long getId() {
         return id;
@@ -65,12 +64,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -105,12 +104,12 @@ public class User {
         isActive = active;
     }
 
-    public Set<Role> getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Set<Role> role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public String getImageUrl() {
@@ -121,19 +120,19 @@ public class User {
         this.imageUrl = imageUrl;
     }
 
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
-
-    public LocalDateTime getModified() {
-        return modified;
-    }
-
-    public void setModified(LocalDateTime modified) {
-        this.modified = modified;
-    }
+//    public LocalDateTime getCreated() {
+//        return created;
+//    }
+//
+//    public void setCreated(LocalDateTime created) {
+//        this.created = created;
+//    }
+//
+//    public LocalDateTime getModified() {
+//        return modified;
+//    }
+//
+//    public void setModified(LocalDateTime modified) {
+//        this.modified = modified;
+//    }
 }
