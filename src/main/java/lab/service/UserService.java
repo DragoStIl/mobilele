@@ -2,6 +2,7 @@ package lab.service;
 
 import lab.entity.UserEntity;
 import lab.entity.dto.UserLoginDTO;
+import lab.entity.dto.UserRegisterDTO;
 import lab.repositories.UserRepository;
 import lab.user.CurrentUser;
 import org.slf4j.Logger;
@@ -26,18 +27,33 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public void registerAndLogin(UserRegisterDTO userRegisterDTO){
+
+        UserEntity user = new UserEntity();
+        user.setActive(true);
+        user.setEmail(userRegisterDTO.getEmail());
+        user.setFirstName(userRegisterDTO.getFirstName());
+        user.setLastName(userRegisterDTO.getLastName());
+        user.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
+        System.out.println(userRegisterDTO);
+        System.out.println(user);
+        userRepository.save(user);
+        login(user);
+    }
+
     public boolean login(UserLoginDTO loginDTO){
-        Optional<UserEntity> optionalUser = userRepository.findByEmail(loginDTO.getUsername());
+        Optional<UserEntity> optionalUser = userRepository.findByEmail(loginDTO.getEmail());
 
         if (optionalUser.isEmpty()){
-            LOGGER.debug("User with name [{}] not found", loginDTO.getUsername());
+            LOGGER.debug("User with name [{}] not found", loginDTO.getEmail());
             return false;
         }
 
-        var rawPassword = loginDTO.getPassword();
-        var encodedPassword = optionalUser.get().getPassword();
+        String rawPassword = loginDTO.getPassword();
+        String encodedPassword = optionalUser.get().getPassword();
 
         boolean success = passwordEncoder.matches(rawPassword, encodedPassword);
+//        boolean success = loginDTO.getPassword().endsWith(optionalUser.get().getPassword());
 
         if (success){
             login(optionalUser.get());

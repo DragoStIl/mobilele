@@ -18,9 +18,7 @@ public class CurrentUser {
         this.name = name;
     }
 
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
+
 
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
@@ -29,5 +27,13 @@ public class CurrentUser {
     public void clear(){
         loggedIn = false;
         name = null;
+    }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public boolean isAnonymous(){
+        return !loggedIn;
     }
 }
