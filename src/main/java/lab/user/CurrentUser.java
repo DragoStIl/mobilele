@@ -1,4 +1,4 @@
-package lab.entity.user;
+package lab.user;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;

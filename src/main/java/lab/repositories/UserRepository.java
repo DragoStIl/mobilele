@@ -1,4 +1,4 @@
-package lab.entity.repositories;
+package lab.repositories;
 
 import lab.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

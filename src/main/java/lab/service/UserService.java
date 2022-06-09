@@ -1,11 +1,12 @@
-package lab.entity.service;
+package lab.service;
 
 import lab.entity.UserEntity;
 import lab.entity.dto.UserLoginDTO;
-import lab.entity.repositories.UserRepository;
-import lab.entity.user.CurrentUser;
+import lab.repositories.UserRepository;
+import lab.user.CurrentUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,10 +18,12 @@ public class UserService {
 
     private UserRepository userRepository;
     private CurrentUser currentUser;
+    private PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, CurrentUser currentUser){
+    public UserService(UserRepository userRepository, CurrentUser currentUser, PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
         this.currentUser = currentUser;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public boolean login(UserLoginDTO loginDTO){
@@ -31,7 +34,10 @@ public class UserService {
             return false;
         }
 
-        boolean success = optionalUser.get().getPassword().equals(loginDTO.getPassword());
+        var rawPassword = loginDTO.getPassword();
+        var encodedPassword = optionalUser.get().getPassword();
+
+        boolean success = passwordEncoder.matches(rawPassword, encodedPassword);
 
         if (success){
             login(optionalUser.get());
