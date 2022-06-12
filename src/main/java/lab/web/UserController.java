@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/users")
 public class UserController {
@@ -46,7 +48,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(UserRegisterDTO userRegisterDTO) {
+    public String register(@Valid UserRegisterDTO userRegisterDTO) {
         userService.registerAndLogin(userRegisterDTO);
         return "redirect:/";
     }
