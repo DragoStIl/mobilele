@@ -1,7 +1,6 @@
 package lab.web;
 
 import lab.entity.dto.UserLoginDTO;
-import lab.entity.dto.UserRegisterDTO;
 import lab.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,16 +11,14 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/users")
-public class UserController {
+public class UserLoginController {
 
     private UserService userService;
 
-    public UserController(UserService userService) {
+    public UserLoginController(UserService userService) {
         this.userService = userService;
     }
 
-
-    // LOGIN / LOGOUT
     @GetMapping("/login")
     public String login() {
         return "auth-login";
@@ -41,15 +38,5 @@ public class UserController {
         return "redirect:/";
     }
 
-    // REGISTRATION
-    @GetMapping("/register")
-    public String register(){
-        return "auth-register";
-    }
 
-    @PostMapping("/register")
-    public String register(@Valid UserRegisterDTO userRegisterDTO) {
-        userService.registerAndLogin(userRegisterDTO);
-        return "redirect:/";
-    }
 }
