@@ -3,6 +3,7 @@ package lab.service;
 import lab.entity.UserEntity;
 import lab.entity.dto.UserLoginDTO;
 import lab.entity.dto.UserRegisterDTO;
+import lab.entity.mapper.UserMapper;
 import lab.repositories.UserRepository;
 import lab.user.CurrentUser;
 import org.slf4j.Logger;
@@ -20,23 +21,25 @@ public class UserService {
     private UserRepository userRepository;
     private CurrentUser currentUser;
     private PasswordEncoder passwordEncoder;
+    private UserMapper mapper;
 
-    public UserService(UserRepository userRepository, CurrentUser currentUser, PasswordEncoder passwordEncoder){
+    public UserService(
+            UserRepository userRepository,
+            CurrentUser currentUser,
+            PasswordEncoder passwordEncoder,
+            UserMapper mapper){
         this.userRepository = userRepository;
         this.currentUser = currentUser;
         this.passwordEncoder = passwordEncoder;
+        this.mapper = mapper;
     }
 
     public void registerAndLogin(UserRegisterDTO userRegisterDTO){
 
-        UserEntity user = new UserEntity();
-        user.setActive(true);
-        user.setEmail(userRegisterDTO.getEmail());
-        user.setFirstName(userRegisterDTO.getFirstName());
-        user.setLastName(userRegisterDTO.getLastName());
+        UserEntity user = mapper.userDtoToUserEntity(userRegisterDTO);
         user.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
-        System.out.println(userRegisterDTO);
-        System.out.println(user);
+
+
         userRepository.save(user);
         login(user);
     }

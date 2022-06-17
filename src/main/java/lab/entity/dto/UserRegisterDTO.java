@@ -1,6 +1,8 @@
 package lab.entity.dto;
 
 
+import lab.entity.validations.UniqueUserEmail;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -15,8 +17,9 @@ public class UserRegisterDTO {
     @Size(min = 2, max = 20)
     private String lastName;
 
-    @NotEmpty
-    @Email
+    @NotEmpty(message = "Email is required!")
+    @Email(message = "Email should be unique!")
+    @UniqueUserEmail(message = "Email is already used!")
     private String email;
 
     @NotEmpty
