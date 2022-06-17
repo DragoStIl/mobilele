@@ -66,9 +66,11 @@
                         min="2" max="20"
                         class="form-control"
                        placeholder="Email"/>
-                <p class="invalid-feedback errors alert alert-danger">
-                    Email is required and should be unique!
-                </p>
+                <div class="invalid-feedback errors alert alert-danger">
+                    <div
+                        th:each="err: ${#fields.errors('email')}"
+                        th:text="${err}" />
+                </div>
             </div>
             <div class="form-group col-md-6 mb-3">
                 <label for="password" class="text-white font-weight-bold">Password</label>
@@ -78,7 +80,6 @@
                         th:field="*{password}"
                         th:errorclass="is-invalid"
                         type="password"
-                        min="5"
                         class="form-control"
                        placeholder="Password"/>
                 <p class="invalid-feedback errors alert alert-danger">
@@ -95,7 +96,7 @@
                     th:field="*{confirmPassword}"
                     th:errorclass="is-invalid"
                     type="password"
-                    min="5"
+
                     class="form-control"
                    placeholder="Confirm password"/>
             <p class="invalid-feedback errors alert alert-danger">

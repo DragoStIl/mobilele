@@ -1,12 +1,17 @@
 package lab.entity.dto;
 
 
+import lab.entity.validations.PasswordMatch;
 import lab.entity.validations.UniqueUserEmail;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+@PasswordMatch(
+        pass = "password",
+        confirmation = "confirmPassword"
+)
 public class UserRegisterDTO {
 
     @NotEmpty
@@ -18,7 +23,7 @@ public class UserRegisterDTO {
     private String lastName;
 
     @NotEmpty(message = "Email is required!")
-    @Email(message = "Email should be unique!")
+    @Email(message = "Email should be valid!")
     @UniqueUserEmail(message = "Email is already used!")
     private String email;
 
