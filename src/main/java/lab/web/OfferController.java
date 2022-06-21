@@ -1,6 +1,7 @@
 package lab.web;
 
 import lab.entity.dto.AddOfferDTO;
+import lab.service.BrandService;
 import lab.service.OfferService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +15,13 @@ import javax.validation.Valid;
 @Controller
 public class OfferController {
 
-    private OfferService offerService;
+    private final OfferService offerService;
+    private final BrandService brandService;
 
-    public OfferController(OfferService offerService) {
+    public OfferController(OfferService offerService,
+                           BrandService brandService) {
         this.offerService = offerService;
+        this.brandService = brandService;
     }
 
     @GetMapping("/offers/all")
@@ -30,6 +34,8 @@ public class OfferController {
         if (!model.containsAttribute("addOfferModel")){
             model.addAttribute("addOfferModel", new AddOfferDTO());
         }
+        model.addAttribute("brands", brandService.getBrands());
+
         return "offer-add";
     }
 
@@ -44,6 +50,6 @@ public class OfferController {
             return "redirect:/offers/add";
         }
         offerService.addOffer(addOfferModel);
-        return "offer-add";
+        return "redirect:/offers/all";
     }
 }

@@ -14,7 +14,7 @@ public class Offer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
-    private long id;
+    private Long id;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String description;
@@ -27,7 +27,7 @@ public class Offer {
     private String imageUrl;
 
     @Column(nullable = false)
-    private int mileage;
+    private Integer mileage;
 
     private BigDecimal price;
 
@@ -36,9 +36,9 @@ public class Offer {
     private Transmission transmission;
 
     @Column(columnDefinition = "YEAR", nullable = false)
-    private LocalDate year;
+    private int year;
 
-    @Column(nullable = false)
+    @Column
     private LocalDateTime created;
 
     @Column
@@ -53,19 +53,11 @@ public class Offer {
     public Offer() {
     }
 
-    public Model getModel() {
-        return model;
-    }
-
-    public void setModel(Model model) {
-        this.model = model;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -93,11 +85,11 @@ public class Offer {
         this.imageUrl = imageUrl;
     }
 
-    public int getMileage() {
+    public Integer getMileage() {
         return mileage;
     }
 
-    public void setMileage(int mileage) {
+    public void setMileage(Integer mileage) {
         this.mileage = mileage;
     }
 
@@ -117,11 +109,11 @@ public class Offer {
         this.transmission = transmission;
     }
 
-    public LocalDate getYear() {
+    public int getYear() {
         return year;
     }
 
-    public void setYear(LocalDate year) {
+    public void setYear(int year) {
         this.year = year;
     }
 
@@ -147,5 +139,13 @@ public class Offer {
 
     public void setSeller(UserEntity seller) {
         this.seller = seller;
+    }
+
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
     }
 }

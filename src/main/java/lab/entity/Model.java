@@ -26,12 +26,12 @@ public class Model {
     private String imageUrl;
 
     @Column(nullable = false)
-    private int startYear;
+    private Integer startYear;
 
-    @Column(nullable = false)
-    private int endYear;
+    @Column()
+    private Integer endYear;
 
-    @Column(nullable = false)
+    @Column()
     private LocalDateTime created;
 
     @Column
